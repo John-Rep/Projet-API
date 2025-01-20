@@ -21,14 +21,18 @@ exports.signup = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const user = await User.findOne({email: req.body.email});
-    const validPassword = bcrypt.compareSync(req.body.password, user.password);
-    if (validPassword) {
-        const token = jwt.sign({id: user.id, email: user.email}, secret, {expiresIn : 86400})
-        res.send({
-            token
-        });
-    } else {
-        res.status(401).send("Mot de passe ou email incorrects");
+    try {
+        const user = await User.findOne({email: req.body.email});
+        const validPassword = bcrypt.compareSync(req.body.password, user.password);
+        if (validPassword) {
+            const token = jwt.sign({id: user.id, email: user.email}, secret, {expiresIn : 86400})
+            res.send({
+                token
+            });
+        } else {
+            res.status(401).send("Mot de passe incorrect");
+        }
+    } catch (err) {
+        res.status(403).send("email non trouvé");
     }
 }
