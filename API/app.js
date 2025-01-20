@@ -6,30 +6,14 @@ mongoose.connect('mongodb://localhost:27017/BoiteAnnonces?retryWrites=true&w=maj
 
 const app = express();
 app.use(express.json());
-const Annonce = require('./annonces');
-app.get('/api/annonces', async (req,res)=>{
-  annonce = await Annonce.find()
-  try {
-    res.json(annonce);
-  } catch (err) {
-    res.status(500).send("Error in getting the announcements");
-  }
-})
+const auth = require('./controllers/authController');
+const jwt = require('./middlewares/jwtauth');
+const annonceCont = require('./controllers/annonceController');
 
-app.post('/api/annonces', async (req,res)=>{
-  try {
-    const newAnnonce = new Annonce({
-      user_id: req.body.user_id,
-      title: req.body.title,
-      content: req.body.content,
-      date: Date()
-    });
-    const savedAnnonce = await newAnnonce.save();
-    res.status(201).json(savedAnnonce);
-  } catch (err) {
-    res.status(500).send("Erreur lors de la création de l'annonce" + err);
-  }
-})
+app.get('/api/annonces', [jwt.verifyToken, jwt.userExists], annonceCont.getAnnonces)
+app.post('/api/annonces', annonceCont.postAnnonce)
 
+app.post('/api/signup', auth.signup);
+app.post('/api/login', auth.login);
 
 module.exports = app;
