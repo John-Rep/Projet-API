@@ -3,9 +3,9 @@ const Annonce = require("../models/annonce");
 exports.postAnnonce = async (req,res)=>{
     try {
         const newAnnonce = new Annonce({
-        user_id: req.body.user_id,
+        user_id: req.id,
         title: req.body.title,
-        content: req.body.content,
+        description: req.body.description,
         date: Date()
         });
         const savedAnnonce = await newAnnonce.save();

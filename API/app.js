@@ -11,7 +11,7 @@ const jwt = require('./middlewares/jwtauth');
 const annonceCont = require('./controllers/annonceController');
 
 app.get('/api/annonces', [jwt.verifyToken, jwt.userExists], annonceCont.getAnnonces)
-app.post('/api/annonces', annonceCont.postAnnonce)
+app.post('/api/annonces', [jwt.verifyToken, jwt.userExists], annonceCont.postAnnonce)
 
 app.post('/api/signup', auth.signup);
 app.post('/api/login', auth.login);
