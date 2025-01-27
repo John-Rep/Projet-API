@@ -8,10 +8,15 @@ const app = express();
 app.use(express.json());
 const auth = require('./controllers/authController');
 const jwt = require('./middlewares/jwtauth');
+const upload = require('./middlewares/upload');
 const annonceCont = require('./controllers/annonceController');
 
 app.get('/api/annonces', [jwt.verifyToken, jwt.userExists], annonceCont.getAnnonces)
 app.post('/api/annonces', [jwt.verifyToken, jwt.userExists], annonceCont.postAnnonce)
+
+app.get('/api/annonces/:id', [jwt.verifyToken, jwt.userExists], annonceCont.getAnnonce)
+app.put('/api/annonces/:id', [jwt.verifyToken, jwt.userExists, annonceCont.isUsersPost], upload.single('image'), annonceCont.putImage)
+app.get('/api/annonces/:id/image', [jwt.verifyToken, jwt.userExists], annonceCont.getImage)
 
 app.post('/api/signup', auth.signup);
 app.post('/api/login', auth.login);
