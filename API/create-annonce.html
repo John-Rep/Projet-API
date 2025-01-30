@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une annonce</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
+        <div class="header-right">
+            <a href="mes_annonces.html">Mes Annonces</a>
+            <a href="login.html"><button>Se connecter</button></a>
+        </div>
+    </header>  
+    <main>
+        <section class="annonce-form">
+            <h1>Créer une annonce</h1>
+            <form action="submit-annonce.php" method="POST">
+                <label for="titre">Titre de l'annonce :</label>
+                <input type="text" id="titre" name="titre" required>
+
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+
+                <button type="submit">Publier l'annonce</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Boite à annonces. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

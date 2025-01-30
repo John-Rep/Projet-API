@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #5161ce;
+    color: white;
+}
+
+.header-left {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right a {
+    color: white;
+    text-decoration: none;
+    margin-right: 60px;
+}
+
+.header-right button {
+    background-color: white;
+    color: #5161ce;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.header-right button:hover {
+    background-color: #dcdcdc;
+}
+
+
+.welcome {
+    text-align: center;
+    margin: 100px auto;
+    max-width: 600px;
+}
+
+.welcome h1 {
+    font-size: 2em;
+    color: #5161ce;
+}
+
+.welcome p {
+    font-size: 1.2em;
+    color: #454545;
+}
+
+footer {
+    background-color: #5162ceb4;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
+.login-form, .signup-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-form h1, .signup-form {
+    color: #5161ce;
+}
+
+.login-form label, .signup-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.login-form input, .signup-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-form button, .signup-form button {
+    background-color: #5161ce;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.login-form button:hover, .signup-form button:hover {
+    background-color: #3e4cad;
+}
+
+.home-link {
+    text-decoration: none;
+    font-size: 1.5em;
+    color: #e8e8e8;
+    font-weight: bold;
+}
+
+.home-link:hover {
+    color: #61708d;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.create-annonce-btn {
+    background-color: #5161ce;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.create-annonce-btn:hover {
+    background-color: #3e4cad;
+}
+
+.annonce-form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.annonce-form h1 {
+    color: #5161ce;
+}
+
+.annonce-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.annonce-form input,
+.annonce-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.annonce-form button {
+    background-color: #5161ce;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.annonce-form button:hover {
+    background-color: #3e4cad;
+}
+
