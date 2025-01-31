@@ -37,4 +37,7 @@ app.delete('/api/annonces/:id', [jwt.verifyToken, jwt.userExists, annonceCont.is
 app.post('/api/signup', auth.signup);
 app.post('/api/login', auth.login);
 
+app.get('/api/oauth/github', auth.gitAuth);
+app.get('/api/oauth/redirect', auth.redirect);
+
 module.exports = app;
