@@ -9,20 +9,19 @@ const githubClient = process.env.GITHUB_CLIENT_ID;
 const githubRedirect = process.env.REDIRECT_URI;
 
 exports.gitAuth = async (req, res) => {
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${githubClient}&redirect_uri=${githubRedirect}`;
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${githubClient}&redirect_uri=${githubRedirect}&scope=user:email`;
     res.redirect(githubAuthUrl);
 }
 
 exports.redirect = async (req, res) => {
 
-    const { code } = req.query;
+    const { code } = req.body;
 
   if (!code) {
     return res.status(400).send("No code provided");
   }
 
   try {
-    // Exchange code for GitHub access token
     const tokenResponse = await axios.post(
       "https://github.com/login/oauth/access_token",
       {
@@ -33,30 +32,42 @@ exports.redirect = async (req, res) => {
       },
       { headers: { Accept: "application/json" } }
     );
+    
 
     const accessToken = tokenResponse.data.access_token;
-
     // Fetch user info from GitHub
     const userResponse = await axios.get("https://api.github.com/user", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
+
     const userEmailResponse = await axios.get("https://api.github.com/user/emails", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    const user = userResponse.data;
+    const oauthUser = userResponse.data;
     const email = userEmailResponse.data.find((email) => email.primary).email;
 
-    // Generate JWT token
-    const token = jwt.sign({id: user.id, email: user.email}, secret, {expiresIn : 86400});
-    console.log(token);
-    res.send({
-        token
-    });
+    let user = await User.findOne({email : email})
 
-    // Redirect back to frontend
-    res.redirect("index.html"); // Change `/dashboard` to your frontend page
+    if(!user) {
+        try {
+            const newUser = new User({
+                lastName: "None",
+                firstName: oauthUser.login,
+                email: email,
+                password: bcrypt.hashSync("1234"),
+            });
+            user = await newUser.save();
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Erreur de création de compte");
+        }
+    }
+
+    const token = jwt.sign({id: user.id, email: email}, secret, {expiresIn : 86400});
+    res.json({token: token});
+
   } catch (error) {
     console.error("OAuth Error:", error);
     res.status(500).json({ error: "OAuth authentication failed" });
