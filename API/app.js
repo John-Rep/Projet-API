@@ -38,6 +38,9 @@ app.post('/api/signup', auth.signup);
 app.post('/api/login', auth.login);
 
 app.get('/api/oauth/github', auth.gitAuth);
+app.get('/api/oauth/google', auth.googleAuth);
 app.post('/api/oauth/redirect', auth.redirect);
+app.post('/api/oauth/redirect-google', auth.redirectGoogle);
+
 
 module.exports = app;

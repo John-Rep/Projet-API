@@ -26,7 +26,7 @@
             </form>
             <h1>Pas de compte ?</h1>
             <p>Se connecter avec un autre site</p>
-            <button id="github-btn">GitHub</button>
+            <button id="github-btn">GitHub</button><a>    </a><button id="google-btn">Google</button>
             <p>Ou créer un compte</p>
             <a href="signup.html"><button>S'inscrire</button></a>
             <div id="result"></div>
@@ -41,6 +41,9 @@
         const resultDiv = document.getElementById("result");
         document.getElementById("github-btn").addEventListener("click", async () => {
             window.location.href = `${backendURL}/api/oauth/github`; // Redirect to OAuth
+        });
+        document.getElementById("google-btn").addEventListener("click", async () => {
+            window.location.href = `${backendURL}/api/oauth/google`; // Redirect to OAuth
         });
         loginForm.addEventListener("submit", async (event) => {
             event.preventDefault();
