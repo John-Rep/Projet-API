@@ -92,8 +92,6 @@ exports.redirectGoogle = async (req, res) => {
 
     const { code } = req.body;
 
-    console.log(code);
-
   if (!code) {
     return res.status(400).send("No code provided");
   }
@@ -112,12 +110,8 @@ exports.redirectGoogle = async (req, res) => {
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    
-    console.log(tokenResponse);
 
     const id_token = tokenResponse.data.id_token;
-
-    console.log(id_token);
 
     const ticket = await client.verifyIdToken({
         idToken: id_token,
@@ -126,7 +120,6 @@ exports.redirectGoogle = async (req, res) => {
   
       // Extract user information from the verified token
       const userdata = ticket.getPayload();
-      console.log('User info:', userdata);
 
     const email = userdata.email;
 
