@@ -19,12 +19,13 @@
             </a>
             <div id="result"></div>
             <script>
+                const backendURL = "http://localhost:3000";
                 const resultDiv = document.getElementById("result");
                 const urlParams = new URLSearchParams(window.location.search);
                 const code = urlParams.get("code");
                 const getToken = async () => {
                     try {
-                        const response = await fetch(`http://localhost:3000/api/oauth/redirect`, {
+                        const response = await fetch(`${backendURL}/api/oauth/redirect`, {
                                 mode: "cors",
                                 method: "POST",
                                 credentials: 'include',
@@ -40,7 +41,7 @@
                         window.location.replace("index.html");
                     } catch (error) {
                         console.error("Erreur:", error);
-                        resultDiv.textContent = "Erreur lors de la connexion" + code;
+                        resultDiv.textContent = "Erreur lors de la connexion";
                     }
                 }
                 getToken();

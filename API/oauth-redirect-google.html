@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boite à annonces</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
+    </header>
+    <main>
+        <section class="welcome">
+            <h1>Vous avez connecté avec un compte tiers !</h1>
+            <p>Si vous n'êtes pas rédirigé(e) automatiquement,</p>
+            <a href="index.html">
+                <button class="create-annonce-btn">appuyez ici</button>
+            </a>
+            <div id="result"></div>
+            <script>
+                const backendURL = "http://localhost:3000";
+                const resultDiv = document.getElementById("result");
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get("code");
+                const getToken = async () => {
+                    try {
+                        const response = await fetch(`${backendURL}/api/oauth/redirect-google`, {
+                                mode: "cors",
+                                method: "POST",
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    "code": code,
+                                }),
+                        })
+                        const data = await response.json();
+                        document.cookie = `token=${data.token}`;
+                        window.location.replace("index.html");
+                    } catch (error) {
+                        console.error("Erreur:", error);
+                        resultDiv.textContent = "Erreur lors de la connexion" + code;
+                    }
+                }
+                getToken();
+            </script>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Boite à annonces. Tous droits réservés</p>
+    </footer>
+    <script>
+        
+    </script>
+</body>
+</html>
