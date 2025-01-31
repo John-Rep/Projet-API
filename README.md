@@ -18,3 +18,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
    ```bash
    git clone 
+
+
+Il faut aussi authoriser les cookies tiers si vous utilisez Chrome
+Et il faut lancer le server avec Live Server pour avoir l'origine de 127.0.0.1:5500 à cause des cookies

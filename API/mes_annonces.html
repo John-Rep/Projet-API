@@ -11,12 +11,58 @@
         <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
         <div class="header-right">
             <a href="mes_annonces.html">Mes Annonces</a>
-            <a href="login.html"><button>Se connecter</button></a>
+            <a href="login.html"><button id="account">Se connecter</button></a>
+            <script>
+                const accountButton = document.getElementById("account");
+                if (document.cookie.length > 6) {
+                    accountButton.textContent = "Se Déconnecter";
+                    accountButton.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        document.cookie = "token=";
+                        window.location.reload();
+                    })
+                }
+            </script>
         </div>
     </header>
     <main>
         <section class="welcome">
             <h1>Voici tes annonces :</h1>
+            <h2 id="heads"></h2>
+            <div id="result"></div>
+            <script>
+                const backendURL = "http://localhost:3000";
+                const resultDiv = document.getElementById("result");
+                let posts;
+                fetch(`${backendURL}/api/annonces`, {
+                                mode: "cors",
+                                method: "GET",
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "x-access-token": document.cookie.substring(6),
+                                },
+                    })
+                    .then(response => response.json())
+                    .then(data => {posts = data;
+                    for (const post of data) {
+                            let title = document.createElement("h2");
+                            title.textContent = post.title;
+                            resultDiv.appendChild(title);
+                            let content = document.createElement("p");
+                            content.textContent = post.description;
+                            resultDiv.appendChild(content);
+                            let date = document.createElement("p");
+                            date.textContent = new Date(post.date);
+                            resultDiv.appendChild(date);
+                            resultDiv.appendChild(document.createElement("br"));
+                        }
+                    })
+                    .catch(error => {
+                    console.error("Erreur:", error);
+                    resultDiv.textContent = "Erreur lors de la récupération des annonces"});
+                
+            </script>
         </section>
     </main>
     <footer>

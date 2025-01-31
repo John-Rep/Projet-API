@@ -11,13 +11,24 @@
         <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
         <div class="header-right">
             <a href="mes_annonces.html">Mes Annonces</a>
-            <a href="login.html"><button>Se connecter</button></a>
+            <a href="login.html"><button id="account">Se connecter</button></a>
+            <script>
+                const accountButton = document.getElementById("account");
+                if (document.cookie.length > 6) {
+                    accountButton.textContent = "Se Déconnecter";
+                    accountButton.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        document.cookie = "token=";
+                        window.location.reload();
+                    })
+                }
+            </script>
         </div>
     </header>  
     <main>
         <section class="annonce-form">
             <h1>Créer une annonce</h1>
-            <form action="submit-annonce.php" method="POST">
+            <form action="submit-annonce.php" method="POST" id="createpost">
                 <label for="titre">Titre de l'annonce :</label>
                 <input type="text" id="titre" name="titre" required>
 
@@ -32,5 +43,33 @@
     <footer>
         <p>&copy; 2025 Boite à annonces. Tous droits réservés.</p>
     </footer>
+    <script>
+        const backendURL = "http://localhost:3000";
+        const createPost = document.getElementById("createpost");
+        createPost.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            console.log(document.cookie);
+            try {
+                const response = await fetch(`${backendURL}/api/annonces`, {
+                                mode: "cors",
+                                method: "POST",
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "x-access-token": document.cookie.substring(6),
+                                },
+                                body: JSON.stringify({
+                                    "title": document.getElementById("titre").value,
+                                    "description": document.getElementById("description").value,
+                                }),
+                    })
+                window.location.replace("index.html");
+
+            } catch (error) {
+                console.error("Erreur:", error);
+                resultDiv.textContent = "Erreur lors de la création d'annonce";
+            }
+        });
+    </script>
 </body>
 </html>

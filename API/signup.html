@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouveau compte</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
+    </header>
+    <main>
+        <section class="login-form">
+            <h1>Création de compte</h1>
+            <form action="index.html" method="POST" id="login">
+                <label for="lastname">Nom :</label>
+                <input type="text" id="lastname" name="lastname" required>
+
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" name="firstname" required>
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+
+                <div class="form-buttons">
+                    <button type="submit">Créer Compte</button>
+                </div>
+            </form>
+            <div id="result"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Boite à annonces. Tous droits réservés.</p>
+    </footer>
+    <script>
+        const backendURL = "http://localhost:3000";
+        const loginForm = document.getElementById("login");
+        const resultDiv = document.getElementById("result");
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            try {
+                const response = await fetch(`${backendURL}/api/signup`, {
+                                mode: "cors",
+                                method: "POST",
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    "lastName": document.getElementById("lastname").value,
+                                    "firstName": document.getElementById("firstname").value,
+                                    "email": document.getElementById("email").value,
+                                    "password": document.getElementById("password").value,
+                                }),
+                    })
+                if (response.status === 403) {
+                    resultDiv.textContent = "Le mot de passe ou l'email n'est pas correct";
+                    return;
+                }
+                window.location.replace("comptecree.html");
+
+            } catch (error) {
+                console.error("Erreur:", error);
+                resultDiv.textContent = "Erreur lors de la connexion";
+            }
+        });
+    </script>
+</body>
+</html>
