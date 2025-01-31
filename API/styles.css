@@ -199,3 +199,30 @@ button:hover {
     background-color: #3e4cad;
 }
 
+.annonce-detail {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.annonce-detail h1 {
+    color: #5161ce;
+    font-size: 2em;
+}
+
+.annonce-date {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.annonce-description {
+    font-size: 1.2em;
+    color: #454545;
+    margin-bottom: 20px;
+}
+
