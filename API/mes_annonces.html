@@ -11,7 +11,18 @@
         <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
         <div class="header-right">
             <a href="mes_annonces.html">Mes Annonces</a>
-            <a href="login.html"><button>Se connecter</button></a>
+            <a href="login.html"><button id="account">Se connecter</button></a>
+            <script>
+                const accountButton = document.getElementById("account");
+                if (document.cookie.length > 6) {
+                    accountButton.textContent = "Se Déconnecter";
+                    accountButton.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        document.cookie = "token=";
+                        window.location.reload();
+                    })
+                }
+            </script>
         </div>
     </header>
     <main>
