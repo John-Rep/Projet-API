@@ -10,7 +10,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 - **Node.js** ([Télécharger ici](https://nodejs.org/))
 - **MongoDB** ([Télécharger ici](https://www.mongodb.com/try/download/community))
-- **Live Server** (extension VS Code recommandée)
+- **Live Server** (extension VS Code nécessaire)
 
 ### 🔹 Étapes d'installation
 
