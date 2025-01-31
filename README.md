@@ -21,20 +21,20 @@ Avant de commencer, assurez-vous d'avoir installé :
    git clone https://github.com/John-Rep/Projet-API.git
    ```
    
-   Une fois le repository cloné, accédez au dossier du projet et installez les dépendances nécessaires avec npm :
+2. Une fois le repository cloné, accédez au dossier du projet et installez les dépendances nécessaires avec npm :
    
    ```bash
    cd API
    node server.js
    ```
 
-   Lancer le serveur :
+3. Lancer le serveur :
 
    ```bash
    node server.js
    ```
    
-   Lancer le client avec Live Server :
+4. Lancer le client avec Live Server :
 
    Ouvrez le fichier index.html et utilisez Live Server pour démarrer le projet.
    Cela est nécessaire pour avoir l'origine 127.0.0.1:5500 et éviter des problèmes avec les cookies.
