@@ -55,6 +55,12 @@
                             let date = document.createElement("p");
                             date.textContent = new Date(post.date);
                             resultDiv.appendChild(date);
+                            let link = document.createElement("a");
+                            link.href = "annonce-detail.html?id=" + post._id;
+                            let view = document.createElement("button");
+                            view.textContent = "Voir annonce";
+                            link.appendChild(view);
+                            resultDiv.appendChild(link);
                             resultDiv.appendChild(document.createElement("br"));
                         }
                     })

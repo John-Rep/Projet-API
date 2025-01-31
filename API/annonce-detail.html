@@ -11,19 +11,63 @@
         <div class="header-left"><a href="index.html" class="home-link">Boite à annonces</a></div>
         <div class="header-right">
             <a href="annonces.html">Annonces</a>
-            <a href="login.html"><button>Se connecter</button></a>
+            <a href="login.html"><button id="account">Se connecter</button></a>
+            <script>
+                const accountButton = document.getElementById("account");
+                if (document.cookie.length > 6) {
+                    accountButton.textContent = "Se Déconnecter";
+                    accountButton.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        document.cookie = "token=";
+                        window.location.reload();
+                    })
+                }
+            </script>
         </div>
     </header>
 
     <main>
         <section class="annonce-detail">
             <h1 id="annonce-titre">Titre de l'annonce</h1>
-            <p class="annonce-date">Publié le : <span id="annonce-date">12 janvier 2025</span></p>
+            <p class="annonce-date">Publié <span id="annonce-date">le 12 janvier 2025</span></p>
             <p class="annonce-description" id="annonce-description">
                 Ceci est une description détaillée de l'annonce. Elle contient toutes les informations nécessaires sur le produit ou service proposé.
             </p>
+            <img id="annonce-image"/>
         </section>
     </main>
+    <script>
+        const backendURL = "http://localhost:3000";
+        const urlParams = new URLSearchParams(window.location.search);
+        const post_id = urlParams.get("id");
+        const titre = document.getElementById("annonce-titre");
+        const date = document.getElementById("annonce-date");
+        const description = document.getElementById("annonce-description");
+        const image = document.getElementById("annonce-image");
+        fetch(`${backendURL}/api/annonces/${post_id}`, {
+                                mode: "cors",
+                                method: "GET",
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "x-access-token": document.cookie.substring(6),
+                                },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        titre.textContent = data.title;
+                        date.textContent = new Date(data.date);
+                        description.textContent = data.description;
+                        if (data.image) {
+                            const base64Image = btoa(String.fromCharCode(...data.image.data.data));
+                            const dataUri = `data:image/jpeg;base64,${base64Image}`;
+                            image.src = dataUri;
+                        }
+                    })
+                    .catch(error => {
+                    console.error("Erreur:", error);
+                    description.textContent = "Erreur lors de la récupération de l'annonce"});
+    </script>
 
     <footer>
         <p>&copy; 2025 Boite à annonces. Tous droits réservés.</p>
